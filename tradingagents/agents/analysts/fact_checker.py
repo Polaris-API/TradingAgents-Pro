@@ -8,6 +8,8 @@ lets the debate agents know which claims are supported, disputed, or
 inconclusive.
 """
 
+from langchain_core.messages import HumanMessage, SystemMessage
+
 
 def create_fact_checker(llm_client):
     """Create a Fact Checker node that verifies key claims before debate.
@@ -47,7 +49,7 @@ def create_fact_checker(llm_client):
             "3. Three major AI companies announced increased GPU orders"
         )
 
-        messages = [{"role": "system", "content": extract_prompt}]
+        messages = [SystemMessage(content=extract_prompt), HumanMessage(content=f"Extract verifiable claims about {ticker}.")]
         claims_response = llm_client.invoke(messages)
         claims_text = claims_response.content
 

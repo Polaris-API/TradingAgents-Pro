@@ -1,3 +1,4 @@
+from langchain_core.messages import HumanMessage, SystemMessage
 """
 Contradiction Detector — scans all reports for conflicting facts.
 
@@ -57,7 +58,7 @@ def create_contradiction_detector(llm_client):
             "and overall data consistency assessment (HIGH/MEDIUM/LOW)."
         )
 
-        messages = [{"role": "system", "content": system_prompt}]
+        messages = [SystemMessage(content=system_prompt), HumanMessage(content=f"Analyze {ticker} now.")]
         response = llm_client.invoke(messages)
 
         return {"contradiction_report": response.content}

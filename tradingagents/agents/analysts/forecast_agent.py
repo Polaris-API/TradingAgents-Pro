@@ -1,3 +1,4 @@
+from langchain_core.messages import HumanMessage, SystemMessage
 """
 Forecast Agent — generates forward-looking predictions with invalidation criteria.
 
@@ -72,7 +73,7 @@ def create_forecast_agent(llm_client):
             "confidence level."
         )
 
-        messages = [{"role": "system", "content": system_prompt}]
+        messages = [SystemMessage(content=system_prompt), HumanMessage(content=f"Analyze {ticker} now.")]
         response = llm_client.invoke(messages)
 
         return {"forecast_report": response.content}

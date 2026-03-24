@@ -1,3 +1,4 @@
+from langchain_core.messages import HumanMessage, SystemMessage
 """
 Macro Analyst — assesses the macroeconomic environment and its implications.
 
@@ -60,7 +61,7 @@ def create_macro_analyst(llm_client):
             "Be specific with numbers. Reference the data provided."
         )
 
-        messages = [{"role": "system", "content": system_prompt}]
+        messages = [SystemMessage(content=system_prompt), HumanMessage(content=f"Analyze {ticker} now.")]
         response = llm_client.invoke(messages)
 
         return {"macro_report": response.content}

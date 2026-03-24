@@ -1,3 +1,4 @@
+from langchain_core.messages import HumanMessage, SystemMessage
 """
 Bias Auditor — analyzes source distribution and framing across all briefs.
 
@@ -41,7 +42,7 @@ def create_bias_auditor(llm_client):
             "Be objective and specific. Reference actual sources from the data."
         )
 
-        messages = [{"role": "system", "content": system_prompt}]
+        messages = [SystemMessage(content=system_prompt), HumanMessage(content=f"Analyze {ticker} now.")]
         response = llm_client.invoke(messages)
 
         return {"bias_report": response.content}
