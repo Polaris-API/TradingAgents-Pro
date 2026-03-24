@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "tradingagents"
-version = "0.2.2"
-description = "TradingAgents: Multi-Agents LLM Financial Trading Framework"
+name = "tradingagents-pro"
+version = "1.0.0"
+description = "TradingAgents-Pro: Enhanced multi-agent trading framework with verified intelligence"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -26,6 +26,8 @@ dependencies = [
     "rich>=14.0.0",
     "typer>=0.21.0",
     "setuptools>=80.9.0",
+    "polaris-news>=0.7.0",
+    "cachetools>=5.0.0",
     "stockstats>=0.6.5",
     "tqdm>=4.67.1",
     "typing-extensions>=4.14.0",

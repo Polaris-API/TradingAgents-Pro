@@ -20,16 +20,18 @@ DEFAULT_CONFIG = {
     "max_debate_rounds": 1,
     "max_risk_discuss_rounds": 1,
     "max_recur_limit": 100,
-    # Data vendor configuration
-    # Category-level configuration (default for all tools in category)
+    # Data vendor configuration — Polaris is the primary vendor
+    # yfinance kept as supplementary for options, analyst consensus, institutional holdings
     "data_vendors": {
-        "core_stock_apis": "yfinance",       # Options: alpha_vantage, yfinance
-        "technical_indicators": "yfinance",  # Options: alpha_vantage, yfinance
-        "fundamental_data": "yfinance",      # Options: alpha_vantage, yfinance
-        "news_data": "yfinance",             # Options: alpha_vantage, yfinance
+        "core_stock_apis": "polaris",            # Polaris multi-provider (Yahoo/TwelveData/FMP)
+        "technical_indicators": "polaris",       # 20 indicators + signal summary
+        "fundamental_data": "polaris",           # Full financials in one call
+        "news_data": "polaris",                  # Confidence-scored, bias-analyzed briefs
+        "sentiment_analysis": "polaris",         # Polaris-exclusive: composite signals, sector analysis, news impact
     },
     # Tool-level configuration (takes precedence over category-level)
     "tool_vendors": {
-        # Example: "get_stock_data": "alpha_vantage",  # Override category default
+        # yfinance supplementary — data Polaris doesn't have yet
+        "get_insider_transactions": "yfinance",  # Form 4 insider trades
     },
 }
