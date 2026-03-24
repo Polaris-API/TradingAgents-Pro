@@ -3,6 +3,11 @@ from .utils.agent_states import AgentState, InvestDebateState, RiskDebateState
 from .utils.memory import FinancialSituationMemory
 
 from .analysts.context_builder import create_context_builder
+from .analysts.macro_analyst import create_macro_analyst
+from .analysts.fact_checker import create_fact_checker
+from .analysts.bias_auditor import create_bias_auditor
+from .analysts.forecast_agent import create_forecast_agent
+from .analysts.contradiction_detector import create_contradiction_detector
 from .analysts.fundamentals_analyst import create_fundamentals_analyst
 from .analysts.market_analyst import create_market_analyst
 from .analysts.news_analyst import create_news_analyst
@@ -29,6 +34,11 @@ __all__ = [
     "create_bear_researcher",
     "create_bull_researcher",
     "create_context_builder",
+    "create_macro_analyst",
+    "create_fact_checker",
+    "create_bias_auditor",
+    "create_forecast_agent",
+    "create_contradiction_detector",
     "create_research_manager",
     "create_fundamentals_analyst",
     "create_market_analyst",
