@@ -546,7 +546,7 @@ def mode_portfolio(args) -> None:
 
 
 def mode_demo(args) -> None:
-    """Demo mode: full analysis + save report + print shareable URL."""
+    """Demo mode: full analysis + save locally + upload to Polaris for shareable URL."""
     ticker = args.ticker.upper()
     date = args.date or _today()
     config = _build_config(args)
@@ -559,15 +559,37 @@ def mode_demo(args) -> None:
     print(decision)
     print()
 
-    # Save report
+    # Save report locally
     from tradingagents.output.formatter import format_pro_report
     report = format_pro_report(state)
     path = _save_report(ticker, date, report)
-
     print(f"Report saved to: {path}")
-    print()
-    print(f"Share this report: https://thepolarisreport.com/reports/{ticker}-{date}")
-    print("(Note: Report hosting coming soon)")
+
+    # Upload to Polaris for shareable URL
+    _print_subheader("Sharing")
+    try:
+        import requests
+        api_key = os.environ.get("POLARIS_API_KEY", "")
+        if not api_key:
+            print("Set POLARIS_API_KEY to upload reports. Skipping upload.")
+            return
+
+        resp = requests.post(
+            "https://api.thepolarisreport.com/api/v1/reports/upload",
+            headers={"X-API-Key": api_key, "Content-Type": "application/json"},
+            json={"ticker": ticker, "tier": "cli", "markdown": report},
+            timeout=30,
+        )
+        if resp.status_code == 200:
+            data = resp.json()
+            report_id = data.get("report_id", data.get("id", ""))
+            url = f"https://thepolarisreport.com/reports/{report_id}"
+            print(f"Shareable URL: {url}")
+            print(f"Report ID: {report_id}")
+        else:
+            print(f"Upload failed ({resp.status_code}). Report saved locally at {path}")
+    except Exception as e:
+        print(f"Upload failed: {e}. Report saved locally at {path}")
 
 
 def mode_preset(args) -> None:
