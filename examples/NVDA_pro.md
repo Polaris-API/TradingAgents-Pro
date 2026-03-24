@@ -86,39 +86,6 @@ The prudent approach is tactical underweighting until we see either definitive t
 
 
 ---
-## Verified Claims
-
-# Fact Check Report: NVDA
-
-Claims verified: 8
-
-Claim: NVDA closed at $174.01 on March 24, 2026
-  Verification unavailable: {"status":"error","message":"Authentication required. Use an API key or demo key.","hint":"Get a free API key for higher rate limits at thepolarisreport.com/developers"}
-
-Claim: The stock fell from $192.85 on February 24 to current levels, representing approximately 9.7% decline
-  Verification unavailable: {"status":"error","message":"Authentication required. Use an API key or demo key.","hint":"Get a free API key for higher rate limits at thepolarisreport.com/developers"}
-
-Claim: RSI declined from 42.78 on March 16 to 36.74 on March 24
-  Verification unavailable: {"status":"error","message":"Authentication required. Use an API key or demo key.","hint":"Get a free API key for higher rate limits at thepolarisreport.com/developers"}
-
-Claim: MACD readings show -2.54 with signal at -1.62 and histogram at -0.92
-  Verification unavailable: {"status":"error","message":"Authentication required. Use an API key or demo key.","hint":"Get a free API key for higher rate limits at thepolarisreport.com/developers"}
-
-Claim: Current price is 4.1% below the 20-day SMA of 181.4
-  Verification unavailable: {"status":"error","message":"Authentication required. Use an API key or demo key.","hint":"Get a free API key for higher rate limits at thepolarisreport.com/developers"}
-
-Claim: Current price is 5.5% below the 50-day SMA of 184.2
-  Verification unavailable: {"status":"error","message":"Authentication required. Use an API key or demo key.","hint":"Get a free API key for higher rate limits at thepolarisreport.com/developers"}
-
-Claim: ATR (Average True Range) decreased from 6.34 on March 16 to 5.6 on March 24
-  Verification unavailable: {"status":"error","message":"Authentication required. Use an API key or demo key.","hint":"Get a free API key for higher rate limits at thepolarisreport.com/developers"}
-
-Claim: VWAP (Volume Weighted Average Price) is at 183.06
-  Verification unavailable: {"status":"error","message":"Authentication required. Use an API key or demo key.","hint":"Get a free API key for higher rate limits at thepolarisreport.com/developers"}
-
-Summary: 0 supported, 0 disputed, 8 inconclusive
-
-
 ---
 ## Forward Outlook
 
