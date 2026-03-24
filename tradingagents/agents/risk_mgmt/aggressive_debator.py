@@ -18,6 +18,20 @@ def create_aggressive_debator(llm):
 
         trader_decision = state["trader_investment_plan"]
 
+        # Phase 4: Pull enhanced reports for risk-informed debate
+        forecast_report = state.get("forecast_report", "")
+        macro_report = state.get("macro_report", "")
+        contradiction_report = state.get("contradiction_report", "")
+
+        # Phase 4: Build enhanced risk context
+        enhanced_risk_context = ""
+        if forecast_report:
+            enhanced_risk_context += f"\n\nForecast & Invalidation Criteria:\n{forecast_report}"
+        if macro_report:
+            enhanced_risk_context += f"\n\nMacroeconomic Context:\n{macro_report}"
+        if contradiction_report:
+            enhanced_risk_context += f"\n\nData Contradictions (risk factors):\n{contradiction_report}"
+
         prompt = f"""As the Aggressive Risk Analyst, your role is to actively champion high-reward, high-risk opportunities, emphasizing bold strategies and competitive advantages. When evaluating the trader's decision or plan, focus intently on the potential upside, growth potential, and innovative benefits—even when these come with elevated risk. Use the provided market data and sentiment analysis to strengthen your arguments and challenge the opposing views. Specifically, respond directly to each point made by the conservative and neutral analysts, countering with data-driven rebuttals and persuasive reasoning. Highlight where their caution might miss critical opportunities or where their assumptions may be overly conservative. Here is the trader's decision:
 
 {trader_decision}
@@ -28,7 +42,10 @@ Market Research Report: {market_research_report}
 Social Media Sentiment Report: {sentiment_report}
 Latest World Affairs Report: {news_report}
 Company Fundamentals Report: {fundamentals_report}
+{enhanced_risk_context}
 Here is the current conversation history: {history} Here are the last arguments from the conservative analyst: {current_conservative_response} Here are the last arguments from the neutral analyst: {current_neutral_response}. If there are no responses from the other viewpoints yet, present your own argument based on the available data.
+
+When available, use the forecast report to argue why invalidation scenarios are unlikely and the macro context supports upside. Address any data contradictions by explaining why the bullish interpretation is more credible.
 
 Engage actively by addressing any specific concerns raised, refuting the weaknesses in their logic, and asserting the benefits of risk-taking to outpace market norms. Maintain a focus on debating and persuading, not just presenting data. Challenge each counterpoint to underscore why a high-risk approach is optimal. Output conversationally as if you are speaking without any special formatting."""
 

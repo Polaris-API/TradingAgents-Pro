@@ -241,6 +241,10 @@ class TradingAgentsGraph:
         # Log state
         self._log_state(trade_date, final_state)
 
+        # Phase 4: Generate and save the formatted Pro report
+        formatted_report = self.signal_processor.format_report(final_state)
+        self._save_formatted_report(trade_date, formatted_report)
+
         # Return decision and processed signal
         return final_state, self.process_signal(final_state["final_trade_decision"])
 
@@ -292,6 +296,19 @@ class TradingAgentsGraph:
             encoding="utf-8",
         ) as f:
             json.dump(self.log_states_dict, f, indent=4)
+
+    def _save_formatted_report(self, trade_date, formatted_report: str):
+        """Save the formatted Pro report as a markdown file alongside the JSON log."""
+        directory = Path(f"eval_results/{self.ticker}/TradingAgentsStrategy_logs/")
+        directory.mkdir(parents=True, exist_ok=True)
+
+        report_path = directory / f"pro_report_{trade_date}.md"
+        with open(report_path, "w", encoding="utf-8") as f:
+            f.write(formatted_report)
+
+    def get_formatted_report(self, final_state: dict) -> str:
+        """Public helper: generate the Pro report from any final state dict."""
+        return self.signal_processor.format_report(final_state)
 
     def reflect_and_remember(self, returns_losses):
         """Reflect on decisions and update memory based on returns."""

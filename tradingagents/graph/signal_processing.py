@@ -2,6 +2,8 @@
 
 from langchain_openai import ChatOpenAI
 
+from tradingagents.output.formatter import format_pro_report
+
 
 class SignalProcessor:
     """Processes trading signals to extract actionable decisions."""
@@ -31,3 +33,15 @@ class SignalProcessor:
         ]
 
         return self.quick_thinking_llm.invoke(messages).content
+
+    def format_report(self, final_state: dict) -> str:
+        """
+        Generate the full TradingAgents-Pro markdown report from the final state.
+
+        Args:
+            final_state: Complete LangGraph AgentState after graph execution.
+
+        Returns:
+            Formatted markdown report string.
+        """
+        return format_pro_report(final_state)

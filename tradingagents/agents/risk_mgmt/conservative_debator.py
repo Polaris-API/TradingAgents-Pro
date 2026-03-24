@@ -19,6 +19,20 @@ def create_conservative_debator(llm):
 
         trader_decision = state["trader_investment_plan"]
 
+        # Phase 4: Pull enhanced reports for risk-informed debate
+        forecast_report = state.get("forecast_report", "")
+        macro_report = state.get("macro_report", "")
+        contradiction_report = state.get("contradiction_report", "")
+
+        # Phase 4: Build enhanced risk context
+        enhanced_risk_context = ""
+        if forecast_report:
+            enhanced_risk_context += f"\n\nForecast & Invalidation Criteria:\n{forecast_report}"
+        if macro_report:
+            enhanced_risk_context += f"\n\nMacroeconomic Context:\n{macro_report}"
+        if contradiction_report:
+            enhanced_risk_context += f"\n\nData Contradictions (risk factors):\n{contradiction_report}"
+
         prompt = f"""As the Conservative Risk Analyst, your primary objective is to protect assets, minimize volatility, and ensure steady, reliable growth. You prioritize stability, security, and risk mitigation, carefully assessing potential losses, economic downturns, and market volatility. When evaluating the trader's decision or plan, critically examine high-risk elements, pointing out where the decision may expose the firm to undue risk and where more cautious alternatives could secure long-term gains. Here is the trader's decision:
 
 {trader_decision}
@@ -29,7 +43,10 @@ Market Research Report: {market_research_report}
 Social Media Sentiment Report: {sentiment_report}
 Latest World Affairs Report: {news_report}
 Company Fundamentals Report: {fundamentals_report}
+{enhanced_risk_context}
 Here is the current conversation history: {history} Here is the last response from the aggressive analyst: {current_aggressive_response} Here is the last response from the neutral analyst: {current_neutral_response}. If there are no responses from the other viewpoints yet, present your own argument based on the available data.
+
+When available, use forecast invalidation criteria as specific risk scenarios to watch for. Cite macro headwinds or deteriorating conditions as reasons for caution. Treat data contradictions as unresolved risks that warrant a more conservative position.
 
 Engage by questioning their optimism and emphasizing the potential downsides they may have overlooked. Address each of their counterpoints to showcase why a conservative stance is ultimately the safest path for the firm's assets. Focus on debating and critiquing their arguments to demonstrate the strength of a low-risk strategy over their approaches. Output conversationally as if you are speaking without any special formatting."""
 

@@ -14,12 +14,32 @@ def create_portfolio_manager(llm, memory):
         sentiment_report = state["sentiment_report"]
         trader_plan = state["investment_plan"]
 
+        # Phase 4: Pull enhanced reports from state (safe defaults)
+        fact_check_report = state.get("fact_check_report", "")
+        forecast_report = state.get("forecast_report", "")
+        bias_report = state.get("bias_report", "")
+        contradiction_report = state.get("contradiction_report", "")
+        macro_report = state.get("macro_report", "")
+
         curr_situation = f"{market_research_report}\n\n{sentiment_report}\n\n{news_report}\n\n{fundamentals_report}"
         past_memories = memory.get_memories(curr_situation, n_matches=2)
 
         past_memory_str = ""
         for i, rec in enumerate(past_memories, 1):
             past_memory_str += rec["recommendation"] + "\n\n"
+
+        # Phase 4: Build enhanced context sections for the prompt
+        enhanced_context = ""
+        if fact_check_report:
+            enhanced_context += f"\n\n**Fact Check Report (Verified Claims):**\n{fact_check_report}"
+        if forecast_report:
+            enhanced_context += f"\n\n**Forecast Report (Forward Outlook):**\n{forecast_report}"
+        if bias_report:
+            enhanced_context += f"\n\n**Bias Audit Report:**\n{bias_report}"
+        if contradiction_report:
+            enhanced_context += f"\n\n**Contradiction Report:**\n{contradiction_report}"
+        if macro_report:
+            enhanced_context += f"\n\n**Macro Context Report:**\n{macro_report}"
 
         prompt = f"""As the Portfolio Manager, synthesize the risk analysts' debate and deliver the final trading decision.
 
@@ -37,11 +57,38 @@ def create_portfolio_manager(llm, memory):
 **Context:**
 - Trader's proposed plan: **{trader_plan}**
 - Lessons from past decisions: **{past_memory_str}**
+{enhanced_context}
 
 **Required Output Structure:**
 1. **Rating**: State one of Buy / Overweight / Hold / Underweight / Sell.
 2. **Executive Summary**: A concise action plan covering entry strategy, position sizing, key risk levels, and time horizon.
 3. **Investment Thesis**: Detailed reasoning anchored in the analysts' debate and past reflections.
+
+In addition to your investment decision, include these sections in your final report:
+
+## Confidence Dashboard
+- Sources consulted: [number]
+- Average confidence: [X.XX]
+- Verified claims: [X/Y supported]
+- Contradictions: [count, severity]
+- Bias distribution: [summary]
+
+## Verified Claims
+[Table of key claims with verdict and confidence from the fact check report]
+
+## Forward Outlook
+[Key predictions from forecast report with confidence levels and timeframes]
+
+## What Invalidates This Trade
+[Specific conditions from forecast invalidation criteria]
+
+## Signals to Watch
+[From forecast wildcards and key signals]
+
+## Macro Context
+[Key macro findings and their impact on this trade]
+
+If any of these reports are empty or unavailable, note "Data not available" for that section.
 
 ---
 
