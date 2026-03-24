@@ -16,7 +16,7 @@ Enhanced multi-agent trading framework with verified intelligence, bias detectio
 | Contradictions | None | Flagged and quantified |
 | Technical indicators | Basic (via yfinance) | 20 indicators + composite signal |
 | Sentiment | String labels | Numeric -1.0 to 1.0 + trend |
-| Rate limits | 5/min (Alpha Vantage) | 1,000 free credits/month |
+| Data sources | yfinance only | Polaris (primary) + yfinance (supplementary) |
 | NLP screener | N/A | Natural language &rarr; analysis |
 | Evidence weighting | Equal | Confidence-weighted debate |
 | Executive summary | Buried | First section, 10-second answer |
