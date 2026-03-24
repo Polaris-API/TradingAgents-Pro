@@ -40,13 +40,21 @@ def create_fact_checker(llm_client):
         # Step 1: Use LLM to extract verifiable claims
         extract_prompt = (
             f"Review these analyst reports about {ticker} and extract the 8-10 most "
-            "important FACTUAL claims that could be verified.\n\n"
+            "important FACTUAL claims that could be verified against news sources.\n\n"
             f"REPORTS:\n{combined[:4000]}\n\n"
-            "Return each claim on its own line, numbered. Only include specific, "
-            "verifiable factual claims (not opinions or predictions). Example:\n"
-            "1. NVIDIA GPU demand grew 40% year-over-year\n"
-            "2. Data center revenue exceeded $10 billion\n"
-            "3. Three major AI companies announced increased GPU orders"
+            "IMPORTANT: Only extract NEWS and BUSINESS claims — things that would appear "
+            "in Reuters, Bloomberg, or financial news articles. DO NOT extract:\n"
+            "- Technical indicator values (RSI, MACD, SMA, Bollinger Bands, etc.)\n"
+            "- Stock price levels or trading volumes\n"
+            "- Mathematical calculations or ratios\n\n"
+            "Focus on claims like partnerships, product launches, earnings results, "
+            "strategic decisions, market events, and competitive developments.\n\n"
+            "Return each claim on its own line, numbered. Example:\n"
+            "1. NVIDIA partnered with Roche to build an AI-powered drug discovery platform\n"
+            "2. NVIDIA launched a security platform with CrowdStrike and Palo Alto Networks\n"
+            "3. Micron CEO reported inability to meet memory demand\n"
+            "4. NVIDIA revenue grew 73% year-over-year to $68 billion\n"
+            "5. AWS announced partnership with Cerebras for AI chips"
         )
 
         messages = [SystemMessage(content=extract_prompt), HumanMessage(content=f"Extract verifiable claims about {ticker}.")]
@@ -61,31 +69,30 @@ def create_fact_checker(llm_client):
         lines = [
             l.strip()
             for l in claims_text.split("\n")
-            if l.strip() and l.strip()[0].isdigit()
+            if l.strip() and len(l.strip()) > 20  # Skip short/empty lines
+            and not l.strip().startswith('#')       # Skip markdown headers
+            and not l.strip().lower().startswith('note')  # Skip explanatory notes
+            and not l.strip().lower().startswith('based on')  # Skip preambles
+            and 'verifiable' not in l.lower()       # Skip meta-commentary
+            and 'technical indicator' not in l.lower()  # Skip tech indicator mentions
         ]
 
         verification_results = []
         for line in lines[:8]:
-            claim = line.lstrip("0123456789.) ").strip()
+            claim = line.lstrip("0123456789.)-•* ").strip()
             if not claim:
                 continue
             try:
                 result = client.verify(claim)
-                verdict = (
-                    result.get("verdict", "unknown")
-                    if isinstance(result, dict)
-                    else "unknown"
-                )
-                confidence = (
-                    result.get("confidence", 0)
-                    if isinstance(result, dict)
-                    else 0
-                )
-                sources = (
-                    result.get("sources_checked", 0)
-                    if isinstance(result, dict)
-                    else 0
-                )
+                # Handle both dict and typed response objects
+                if isinstance(result, dict):
+                    verdict = result.get("verdict", "unknown")
+                    confidence = result.get("confidence", 0)
+                    sources = result.get("sources_analyzed", result.get("sources_checked", 0))
+                else:
+                    verdict = getattr(result, "verdict", "unknown")
+                    confidence = getattr(result, "confidence", 0)
+                    sources = getattr(result, "sources_analyzed", getattr(result, "sources_checked", 0))
                 verification_results.append(
                     f"Claim: {claim}\n"
                     f"  Verdict: {verdict} | Confidence: {confidence} | "
