@@ -1,8 +1,23 @@
 # TradingAgents-Pro
 
-Enhanced multi-agent trading framework with verified intelligence, bias detection, and forward-looking predictions.
+Enhanced multi-agent trading framework with verified intelligence, bias detection, and forward-looking predictions. **Built with [Polaris](https://thepolarisreport.com).**
 
 > 15 AI agents. 20 technical indicators. Every claim fact-checked. Every source bias-scored. Every prediction comes with invalidation criteria.
+
+## Or Just /ask Polaris
+
+Don't need the full 15-agent pipeline? Get instant answers:
+
+```python
+from polaris_news import Agent
+
+agent = Agent()
+result = agent.ask("Should I buy NVDA?")
+print(result.summary)       # Bottom line + technicals + sentiment + earnings
+print(result.confidence)    # high
+```
+
+One line. Complete analysis. [Get a free API key](https://thepolarisreport.com/pricing).
 
 ## What's Different
 
@@ -17,7 +32,7 @@ Enhanced multi-agent trading framework with verified intelligence, bias detectio
 | Technical indicators | Basic (via yfinance) | 20 indicators + composite signal |
 | Sentiment | String labels | Numeric -1.0 to 1.0 + trend |
 | Data sources | yfinance only | Polaris (primary) + yfinance (supplementary) |
-| NLP screener | N/A | Natural language &rarr; analysis |
+| NLP screener | N/A | Natural language → analysis |
 | Evidence weighting | Equal | Confidence-weighted debate |
 | Executive summary | Buried | First section, 10-second answer |
 | Macro analysis | None | Economy, yields, VIX, sector rotation |
@@ -43,7 +58,7 @@ All safety enhancements are tagged in the source code with `[TradingAgents-Pro E
 
 ```bash
 # Clone
-git clone https://github.com/JohnnyTarrr/TradingAgents-Pro.git
+git clone https://github.com/Polaris-API/TradingAgents-Pro.git
 cd TradingAgents-Pro
 
 # Install
@@ -154,13 +169,19 @@ Works with any major LLM provider:
 | Ollama | Any local model | `OLLAMA_BASE_URL` |
 | OpenRouter | Any model | `OPENROUTER_API_KEY` |
 
-## Credits
-
-Built on [TradingAgents](https://github.com/TauricResearch/TradingAgents) by Tauric Research -- the original multi-agent LLM trading framework that introduced collaborative analyst, researcher, and risk management agents for market analysis. TradingAgents-Pro replaces the data layer with verified intelligence and adds 6 new agents for a fundamentally better analysis pipeline. The original paper is available at [arXiv:2412.20138](https://arxiv.org/abs/2412.20138).
-
 ## Powered by Polaris
 
-Built on the [Polaris Knowledge API](https://thepolarisreport.com) -- 891 tickers, premium major sources, free tier available.
+Built on the [Polaris Knowledge API](https://thepolarisreport.com) — financial intelligence for AI agents.
+
+- **300+ endpoints** — equities, crypto, forex, commodities, SEC filings, insider trades, analyst ratings
+- **`/ask`** — one endpoint answers any financial question
+- **Agent Marketplace** — build, share, and monetize trading agents
+- **7 SDKs** — Python, TypeScript, LangChain, CrewAI, Vercel AI, MCP, n8n
+- **Free tier** — 1,000 credits/month, no credit card required
+
+## Credits
+
+Built on [TradingAgents](https://github.com/TauricResearch/TradingAgents) by Tauric Research — the original multi-agent LLM trading framework that introduced collaborative analyst, researcher, and risk management agents for market analysis. TradingAgents-Pro replaces the data layer with verified intelligence and adds 6 new agents for a fundamentally better analysis pipeline. The original paper is available at [arXiv:2412.20138](https://arxiv.org/abs/2412.20138).
 
 ## Disclaimer
 
