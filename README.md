@@ -188,7 +188,7 @@ Built on the [Polaris Knowledge API](https://thepolarisreport.com) — financial
 - **300+ endpoints** — equities, crypto, forex, commodities, SEC filings, insider trades, analyst ratings
 - **`/ask`** — one endpoint answers any financial question
 - **Agent Marketplace** — build, share, and monetize trading agents
-- **7 SDKs** — Python, TypeScript, LangChain, CrewAI, Vercel AI, MCP, n8n
+- **8 SDKs + CLI** — Python, TypeScript, LangChain, CrewAI, Vercel AI, MCP, n8n, [CLI](https://www.npmjs.com/package/@polaris-news/cli)
 - **Free tier** — 1,000 credits/month, no credit card required
 
 ## Credits
