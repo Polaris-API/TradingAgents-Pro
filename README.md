@@ -31,7 +31,7 @@ One line. Complete analysis. [Get a free API key](https://thepolarisreport.com/p
 | Contradictions | None | Flagged and quantified |
 | Technical indicators | Basic (via yfinance) | 20 indicators + composite signal |
 | Sentiment | String labels | Numeric -1.0 to 1.0 + trend |
-| Data sources | yfinance only | Polaris (primary) + yfinance (supplementary) |
+| Data sources | yfinance + Alpha Vantage | Polaris (primary) + yfinance (supplementary) |
 | NLP screener | N/A | Natural language → analysis |
 | Evidence weighting | Equal | Confidence-weighted debate |
 | Executive summary | Buried | First section, 10-second answer |
