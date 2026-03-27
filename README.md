@@ -8,16 +8,28 @@ Enhanced multi-agent trading framework with verified intelligence, bias detectio
 
 Don't need the full 18-agent pipeline? Get instant answers:
 
+```bash
+npm install -g @polaris-news/cli
+export POLARIS_API_KEY=pr_live_xxx
+
+polaris ask "Should I buy NVDA?"
+polaris screen "oversold semiconductors"
+polaris signal MSFT
+polaris compare AAPL MSFT GOOGL
+```
+
+Or use the Python SDK:
+
 ```python
 from polaris_news import Agent
 
 agent = Agent()
 result = agent.ask("Should I buy NVDA?")
 print(result.summary)       # Bottom line + technicals + sentiment + earnings
-print(result.confidence)    # high
+print(result.trade_signal)  # { action: "hold", score: 50, factors: [...] }
 ```
 
-One line. Complete analysis. [Get a free API key](https://thepolarisreport.com/pricing).
+One line. Complete analysis. [Get a free API key](https://thepolarisreport.com/pricing). [Try it live](https://thepolarisreport.com/ask).
 
 ## What's Different
 
