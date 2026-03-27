@@ -193,7 +193,7 @@ Built on the [Polaris Knowledge API](https://thepolarisreport.com) — financial
 
 ## Credits
 
-Built on [TradingAgents](https://github.com/TauricResearch/TradingAgents) by Tauric Research — the original multi-agent LLM trading framework that introduced collaborative analyst, researcher, and risk management agents for market analysis. TradingAgents-Pro replaces the data layer with verified intelligence and adds 6 new agents for a fundamentally better analysis pipeline. The original paper is available at [arXiv:2412.20138](https://arxiv.org/abs/2412.20138).
+Built on [TradingAgents](https://github.com/TauricResearch/TradingAgents) by Tauric Research — the original multi-agent LLM trading framework that introduced collaborative analyst, researcher, and risk management agents for market analysis. TradingAgents-Pro replaces the data layer with verified intelligence and adds 9 new agents for a fundamentally better analysis pipeline. The original paper is available at [arXiv:2412.20138](https://arxiv.org/abs/2412.20138).
 
 ## Disclaimer
 
