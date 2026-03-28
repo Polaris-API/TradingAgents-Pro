@@ -4,24 +4,24 @@ Enhanced multi-agent trading framework with verified intelligence, bias detectio
 
 > 18 AI agents. 20 technical indicators. Every claim fact-checked. Every source bias-scored. Every prediction comes with invalidation criteria.
 
-## Or Just /ask Polaris
+## Or Just /ask Veroq
 
 Don't need the full 18-agent pipeline? Get instant answers:
 
 ```bash
-npm install -g @polaris-news/cli
-export POLARIS_API_KEY=pr_live_xxx
+npm install -g @veroq/cli
+export VEROQ_API_KEY=pr_live_xxx
 
-polaris ask "Should I buy NVDA?"
-polaris screen "oversold semiconductors"
-polaris signal MSFT
-polaris compare AAPL MSFT GOOGL
+veroq ask "Should I buy NVDA?"
+veroq screen "oversold semiconductors"
+veroq signal MSFT
+veroq compare AAPL MSFT GOOGL
 ```
 
 Or use the Python SDK:
 
 ```python
-from polaris_news import Agent
+from veroq import Agent
 
 agent = Agent()
 result = agent.ask("Should I buy NVDA?")
@@ -43,7 +43,7 @@ One line. Complete analysis. [Get a free API key](https://thepolarisreport.com/p
 | Contradictions | None | Flagged and quantified |
 | Technical indicators | Basic (via yfinance) | 20 indicators + composite signal |
 | Sentiment | String labels | Numeric -1.0 to 1.0 + trend |
-| Data sources | yfinance + Alpha Vantage | Polaris (primary) + yfinance (supplementary) |
+| Data sources | yfinance + Alpha Vantage | Veroq (primary) + yfinance (supplementary) |
 | NLP screener | N/A | Natural language → analysis |
 | Evidence weighting | Equal | Confidence-weighted debate |
 | Executive summary | Buried | First section, 10-second answer |
@@ -77,7 +77,7 @@ cd TradingAgents-Pro
 pip install -e .
 
 # Set your API keys
-export POLARIS_API_KEY=pr_live_xxx   # Free: thepolarisreport.com/pricing
+export VEROQ_API_KEY=pr_live_xxx     # Free: thepolarisreport.com/pricing (POLARIS_API_KEY also works)
 export OPENAI_API_KEY=sk-xxx         # Or use Anthropic, Google, etc.
 
 # Run
@@ -181,14 +181,14 @@ Works with any major LLM provider:
 | Ollama | Any local model | `OLLAMA_BASE_URL` |
 | OpenRouter | Any model | `OPENROUTER_API_KEY` |
 
-## Powered by Polaris
+## Powered by Veroq
 
-Built on the [Polaris Knowledge API](https://thepolarisreport.com) — financial intelligence for AI agents.
+Built on the [Veroq Knowledge API](https://thepolarisreport.com) — financial intelligence for AI agents.
 
 - **300+ endpoints** — equities, crypto, forex, commodities, SEC filings, insider trades, analyst ratings
 - **`/ask`** — one endpoint answers any financial question
 - **Agent Marketplace** — build, share, and monetize trading agents
-- **8 SDKs + CLI** — Python, TypeScript, LangChain, CrewAI, Vercel AI, MCP, n8n, [CLI](https://www.npmjs.com/package/@polaris-news/cli)
+- **8 SDKs + CLI** — Python, TypeScript, LangChain, CrewAI, Vercel AI, MCP, n8n, [CLI](https://www.npmjs.com/package/@veroq/cli)
 - **Free tier** — 1,000 credits/month, no credit card required
 
 ## Credits

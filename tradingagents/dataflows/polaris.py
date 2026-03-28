@@ -1,14 +1,15 @@
 """
-Polaris Knowledge API data vendor for TradingAgents.
+Veroq Knowledge API data vendor for TradingAgents.
 
-Polaris provides sentiment-scored intelligence briefs, composite trading signals,
+Veroq provides sentiment-scored intelligence briefs, composite trading signals,
 technical indicators, financial data, and news impact analysis. Unlike raw data
-feeds, every Polaris response includes confidence scores, bias analysis, and
+feeds, every Veroq response includes confidence scores, bias analysis, and
 NLP-derived metadata that enriches agent decision-making.
 
 Setup:
-    pip install polaris-news cachetools
-    export POLARIS_API_KEY=pr_live_xxx  # Free: 1,000 credits/month at thepolarisreport.com
+    pip install veroq cachetools
+    export VEROQ_API_KEY=pr_live_xxx  # Free: 1,000 credits/month at thepolarisreport.com
+    # POLARIS_API_KEY also works as a fallback
 
 API docs: https://thepolarisreport.com/api-reference
 """
@@ -43,16 +44,16 @@ def _get_client():
         if _client_instance is not None:
             return _client_instance
         try:
-            from polaris_news import PolarisClient
+            from veroq import PolarisClient
         except ImportError:
             raise ImportError(
-                "polaris-news is required for the Polaris data vendor. "
-                "Install it with: pip install polaris-news"
+                "veroq is required for the Veroq data vendor. "
+                "Install it with: pip install veroq"
             )
-        api_key = os.environ.get("POLARIS_API_KEY")
+        api_key = os.environ.get("VEROQ_API_KEY") or os.environ.get("POLARIS_API_KEY")
         if not api_key:
             raise EnvironmentError(
-                "POLARIS_API_KEY environment variable is required. "
+                "VEROQ_API_KEY environment variable is required. "
                 "Get a free key at https://thepolarisreport.com/pricing"
             )
         _client_instance = PolarisClient(api_key=api_key)

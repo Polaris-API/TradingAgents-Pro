@@ -98,17 +98,17 @@ def _run_pipeline(ticker: str, date: str, config: dict, quiet: bool = False):
 
 
 def _get_polaris_client():
-    """Get a Polaris client for direct API calls (screener, backtest, etc.)."""
+    """Get a Veroq client for direct API calls (screener, backtest, etc.)."""
     try:
-        from polaris_news import PolarisClient
+        from veroq import PolarisClient
     except ImportError:
-        print("ERROR: polaris-news is required for this feature.")
-        print("       Install it with: pip install polaris-news")
+        print("ERROR: veroq is required for this feature.")
+        print("       Install it with: pip install veroq")
         sys.exit(1)
 
-    api_key = os.environ.get("POLARIS_API_KEY")
+    api_key = os.environ.get("VEROQ_API_KEY") or os.environ.get("POLARIS_API_KEY")
     if not api_key:
-        print("ERROR: POLARIS_API_KEY environment variable is required.")
+        print("ERROR: VEROQ_API_KEY environment variable is required.")
         print("       Get a free key at https://thepolarisreport.com/pricing")
         sys.exit(1)
 
@@ -517,7 +517,7 @@ def mode_portfolio(args) -> None:
     # Build combined report
     report_lines = [
         f"# TradingAgents-Pro Portfolio Analysis",
-        f"*Generated {date} | Powered by Polaris Knowledge API*\n",
+        f"*Generated {date} | Powered by Veroq Knowledge API*\n",
         "## Holdings",
         "",
     ]
@@ -569,9 +569,9 @@ def mode_demo(args) -> None:
     _print_subheader("Sharing")
     try:
         import requests
-        api_key = os.environ.get("POLARIS_API_KEY", "")
+        api_key = os.environ.get("VEROQ_API_KEY") or os.environ.get("POLARIS_API_KEY", "")
         if not api_key:
-            print("Set POLARIS_API_KEY to upload reports. Skipping upload.")
+            print("Set VEROQ_API_KEY to upload reports. Skipping upload.")
             return
 
         resp = requests.post(
