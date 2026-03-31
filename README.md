@@ -1,12 +1,65 @@
 # TradingAgents-Pro
 
-[![License](https://img.shields.io/badge/license-MIT-2EE89A)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.9+-2EE89A)](https://python.org)
-[![VEROQ](https://img.shields.io/badge/powered%20by-VEROQ-2EE89A)](https://veroq.ai)
-
-Enhanced multi-agent trading framework with verified intelligence, bias detection, and forward-looking predictions. **Built with [Polaris](https://thepolarisreport.com).**
+Enhanced multi-agent trading framework with verified intelligence, bias detection, and forward-looking predictions. **Built with [VEROQ](https://veroq.ai).**
 
 > 18 AI agents. 20 technical indicators. Every claim fact-checked. Every source bias-scored. Every prediction comes with invalidation criteria.
+
+## Verified Trading Workflow
+
+The VeroQ Agent Coordinator connects your trading team to automatic fact-checking. When any agent produces output with tickers, signals, or market claims, it's routed through VeroQ for verification.
+
+```python
+from tradingagents.coordinator import startVeroQTeam
+
+team = startVeroQTeam({
+    "agents": [
+        {"name": "Bull Analyst", "role": "bull_analyst"},
+        {"name": "Bear Analyst", "role": "bear_analyst"},
+        {"name": "Risk Manager", "role": "risk_manager"},
+        {"name": "CIO", "role": "cio"},
+    ],
+    "enableAutoVerification": True,
+})
+
+result = team.run("Analyze NVDA for a potential long position")
+```
+
+**Output with verification metadata:**
+
+```json
+{
+  "query": "Analyze NVDA for a potential long position",
+  "phases": [
+    {
+      "phase": "debate",
+      "outputs": [
+        {
+          "agent": "Bull Analyst",
+          "role": "bull_analyst",
+          "output": "NVDA trades at $167 with RSI 35...",
+          "verification": {
+            "confidenceScore": 85,
+            "evidenceChain": [
+              {"source": "Reuters", "position": "supports", "reliability": 0.95},
+              {"source": "Bloomberg", "position": "supports", "reliability": 0.94}
+            ],
+            "verificationStatus": "verified",
+            "promptHint": "Verdict: supported. Agreement: 0.92, Quality: 0.88"
+          }
+        }
+      ]
+    }
+  ],
+  "verification_summary": {
+    "total_verifications": 5,
+    "average_confidence": 78,
+    "total_evidence_items": 12,
+    "all_verified": true
+  }
+}
+```
+
+> Advanced verification and enterprise features powered by VeroQ — visit [veroq.ai](https://veroq.ai) for details and plans.
 
 ## Or Just /ask Veroq
 
