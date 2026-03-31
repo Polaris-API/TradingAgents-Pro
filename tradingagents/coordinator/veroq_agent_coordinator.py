@@ -262,6 +262,15 @@ class VeroQTeam:
         self.memory: dict[str, dict[str, Any]] = {a.id: dict(a.initial_memory) for a in agents}
         self._running = True
 
+        # Auto-activate fact checker when verification is enabled
+        self.fact_checker = None
+        if enable_auto_verification:
+            from tradingagents.agents.veroq_fact_checker import VeroQFactChecker
+            self.fact_checker = VeroQFactChecker(
+                endpoint=veroq_endpoint,
+                api_key=veroq_api_key,
+            )
+
     # ── Agent Management ──
 
     def add_agent(self, config: AgentConfig) -> AgentConfig:
@@ -377,12 +386,14 @@ class VeroQTeam:
                     # Simulate agent output (in real usage, this calls the LLM)
                     output = self._execute_agent(agent, query, step["phase"])
 
-                    # Auto-verify if enabled
-                    verification = None
-                    if self.enable_auto_verification and _needs_verification(output):
-                        verification = _verify_with_veroq(
-                            output, self.veroq_endpoint, self.veroq_api_key
-                        )
+                    # Route through fact checker if enabled
+                    if self.fact_checker:
+                        checked = self.fact_checker.check_agent_output(agent.name, role, output)
+                        verification_data = checked.get("verification")
+                        formatted_output = checked.get("formatted", output)
+                    else:
+                        verification_data = None
+                        formatted_output = output
 
                     self.update_task(task.id, TaskStatus.COMPLETE, result=output)
 
@@ -390,12 +401,8 @@ class VeroQTeam:
                         "agent": agent.name,
                         "role": role,
                         "output": output,
-                        "verification": {
-                            "confidenceScore": verification.confidence_score,
-                            "evidenceChain": verification.evidence_chain,
-                            "verificationStatus": verification.verification_status,
-                            "promptHint": verification.prompt_hint,
-                        } if verification else None,
+                        "formatted": formatted_output,
+                        "verification": verification_data,
                         "task_id": task.id,
                     })
 
@@ -437,6 +444,14 @@ class VeroQTeam:
                 "total_evidence_items": total_evidence,
                 "all_verified": all(v["verificationStatus"] == "verified" for v in all_verifications),
             }
+
+        # Fact checker summary
+        if self.fact_checker:
+            fc_summary = self.fact_checker.get_summary()
+            if results.get("verification_summary"):
+                results["verification_summary"]["fact_checker"] = fc_summary
+            else:
+                results["verification_summary"] = {"fact_checker": fc_summary}
 
         results["duration_seconds"] = round(time.time() - start_time, 1)
         results["tasks_completed"] = len([t for t in self.tasks.values() if t.status == TaskStatus.COMPLETE])
