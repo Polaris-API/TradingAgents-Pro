@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use TradingAgents-Pro in your research, please cite both this fork and the original paper."
+title: "TradingAgents-Pro: Verified Multi-Agent Trading Framework"
+abstract: >-
+  TradingAgents-Pro extends the TradingAgents multi-agent LLM trading framework
+  with a runtime verification layer (per-claim fact-checking, source reliability
+  scoring, bias detection, contradiction detection, and forward predictions
+  with invalidation criteria). The verification layer is routed through the
+  VeroQ API. Built on TradingAgents (Apache-2.0) by Tauric Research.
+type: software
+authors:
+  - name: "Veroq AI"
+    website: "https://veroq.ai"
+license: "Apache-2.0"
+repository-code: "https://github.com/Veroq-ai/TradingAgents-Pro"
+url: "https://veroq.ai"
+version: "0.1.0"
+date-released: "2026-04-23"
+keywords:
+  - multi-agent
+  - llm
+  - trading
+  - verification
+  - fact-checking
+  - algorithmic-trading
+  - financial-intelligence
+references:
+  - type: article
+    title: "TradingAgents: Multi-Agent LLM Financial Trading Framework"
+    authors:
+      - name: "Tauric Research"
+    url: "https://arxiv.org/abs/2412.20138"
+    year: 2024

@@ -1,8 +1,15 @@
 # TradingAgents-Pro
 
-Enhanced multi-agent trading framework with verified intelligence, bias detection, and forward-looking predictions. **Built with [VEROQ](https://veroq.ai).**
+[![Release](https://img.shields.io/github/v/release/Veroq-ai/TradingAgents-Pro?display_name=tag&color=2EE89A)](https://github.com/Veroq-ai/TradingAgents-Pro/releases)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
+[![Powered by VeroQ](https://img.shields.io/badge/Powered%20by-VeroQ-2EE89A)](https://veroq.ai)
+
+Enhanced multi-agent trading framework with verified intelligence, bias detection, and forward-looking predictions. **Built with [VeroQ](https://veroq.ai).**
 
 > 18 AI agents. 20 technical indicators. Every claim fact-checked. Every source bias-scored. Every prediction comes with invalidation criteria.
+
+**Fork of [TradingAgents](https://github.com/TauricResearch/TradingAgents)** (Apache-2.0) — adds a runtime verification layer and 9 new agents on top of the original framework. See [CHANGELOG.md](CHANGELOG.md) for what's in v0.1.0.
 
 ## Verified Trading Workflow
 
